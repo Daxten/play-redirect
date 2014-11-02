@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Redirect</title>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <script src="@routes.Assets.at("javascripts/detectmobilebrowser.js")"></script>
+    </head>
+    <body>
+        <script type="application/javascript">
+        (function($) {
+            function getQueryVariable(variable) {
+                var query = window.location.search.substring(1);
+                var vars = query.split("&");
+                for (var i=0;i<vars.length;i++) {
+                    var pair = vars[i].split("=");
+                    if (pair[0] == variable) {
+                        return pair[1];
+                    }
+                }
+                return "";
+            }
+
+            if ($.browser.mobile) {
+                window.top.location = getQueryVariable('mobileRedirect');
+            } else {
+                window.top.location = getQueryVariable('desktopRedirect');
+            }
+        } (jQuery));
+        </script>
+    </body>
+</html>
